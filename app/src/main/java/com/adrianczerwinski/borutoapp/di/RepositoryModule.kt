@@ -5,6 +5,7 @@ import com.adrianczerwinski.borutoapp.data.repository.DataStoreOperationsImpl
 import com.adrianczerwinski.borutoapp.data.repository.Repository
 import com.adrianczerwinski.borutoapp.domain.repository.DataStoreOperations
 import com.adrianczerwinski.borutoapp.domain.use_cases.UseCases
+import com.adrianczerwinski.borutoapp.domain.use_cases.get_all_heroes.GetAllHeroesUseCase
 import com.adrianczerwinski.borutoapp.domain.use_cases.read_onboarding.ReadOnBoardingUseCase
 import com.adrianczerwinski.borutoapp.domain.use_cases.save_onboarding.SaveOnBoardinfUseCase
 import dagger.Module
@@ -28,8 +29,9 @@ object RepositoryModule {
     @Singleton
     fun provideUseCases(repository: Repository): UseCases {
         return UseCases(
-            saveOnBoardinfUseCase = SaveOnBoardinfUseCase(repository),
-            readOnBoardingUseCase = ReadOnBoardingUseCase(repository = repository)
+            saveOnBoardingUseCase = SaveOnBoardinfUseCase(repository),
+            readOnBoardingUseCase = ReadOnBoardingUseCase(repository = repository),
+            getAllHeroesUseCase = GetAllHeroesUseCase(repository = repository)
         )
     }
 
