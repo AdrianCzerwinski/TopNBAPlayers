@@ -33,6 +33,7 @@ import com.adrianczerwinski.borutoapp.presentation.components.RatingWidget
 import com.adrianczerwinski.borutoapp.ui.theme.*
 import com.adrianczerwinski.borutoapp.util.Constants.BASE_URL
 
+@ExperimentalCoilApi
 @Composable
 fun ListContent(
     heroes: LazyPagingItems<Hero>,
@@ -79,8 +80,14 @@ fun handlePagingResult(
                 false
             }
             error != null -> {
+                EmptyScreen(error = error, heroes = heroes)
                 false
             }
+            heroes.itemCount < 1 -> {
+                EmptyScreen()
+                false
+            }
+            
             else -> true
         }
     }
