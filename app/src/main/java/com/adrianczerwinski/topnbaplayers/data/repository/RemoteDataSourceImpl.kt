@@ -26,8 +26,8 @@ class RemoteDataSourceImpl(
         return Pager(
             config = PagingConfig(pageSize = ITEMS_PER_PAGE),
             remoteMediator = HeroRemoteMediator(
-                borutoApi = NBAApi,
-                borutoDatabase = NBAHeroesDatabase
+                NBAApi = NBAApi,
+                NBAHeroesDatabase = NBAHeroesDatabase
             ),
             pagingSourceFactory = pagingSourceFactory
         ).flow
@@ -37,7 +37,7 @@ class RemoteDataSourceImpl(
         return Pager(
             config = PagingConfig(pageSize = ITEMS_PER_PAGE),
             pagingSourceFactory = {
-                SearchHeroesSource(borutoApi = NBAApi, query = query)
+                SearchHeroesSource(NBAApi = NBAApi, query = query)
             }
         ).flow
     }
