@@ -4,7 +4,7 @@ import com.adrianczerwinski.topnbaplayers.domain.model.ApiResponse
 import com.adrianczerwinski.topnbaplayers.domain.model.Hero
 import java.io.IOException
 
-class FakeBorutoApi2 : BorutoApi {
+class FakeNBAApi2 : NBAApi {
 
     private val heroes: Map<Int, List<Hero>> by lazy {
         mapOf(

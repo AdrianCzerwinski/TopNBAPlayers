@@ -3,7 +3,7 @@ package com.adrianczerwinski.topnbaplayers.data.remote
 import com.adrianczerwinski.topnbaplayers.domain.model.ApiResponse
 import com.adrianczerwinski.topnbaplayers.domain.model.Hero
 
-class FakeBorutoApi: BorutoApi {
+class FakeNBAApi: NBAApi {
 
     private val heroes = listOf(
         Hero(

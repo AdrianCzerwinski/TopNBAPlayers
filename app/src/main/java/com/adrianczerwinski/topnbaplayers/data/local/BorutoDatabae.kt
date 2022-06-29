@@ -11,7 +11,7 @@ import com.adrianczerwinski.topnbaplayers.domain.model.HeroRemoteKeys
 
 @TypeConverters(DatabaseConverter::class )
 @Database(entities = [Hero::class, HeroRemoteKeys::class], version = 1)
-abstract class BorutoDatabase: RoomDatabase() {
+abstract class NBAHeroesDatabase: RoomDatabase() {
     abstract fun heroDao(): HeroDao
     abstract fun heroRemoteKeysDao(): HeroRemoteKeysDao
 }

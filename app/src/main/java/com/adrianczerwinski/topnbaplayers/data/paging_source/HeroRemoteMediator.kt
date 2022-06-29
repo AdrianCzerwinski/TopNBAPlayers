@@ -5,19 +5,19 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import com.adrianczerwinski.topnbaplayers.data.local.BorutoDatabase
-import com.adrianczerwinski.topnbaplayers.data.remote.BorutoApi
+import com.adrianczerwinski.topnbaplayers.data.local.NBAHeroesDatabase
+import com.adrianczerwinski.topnbaplayers.data.remote.NBAApi
 import com.adrianczerwinski.topnbaplayers.domain.model.Hero
 import com.adrianczerwinski.topnbaplayers.domain.model.HeroRemoteKeys
 import javax.inject.Inject
 
 @ExperimentalPagingApi
 class HeroRemoteMediator @Inject constructor(
-    private val borutoApi: BorutoApi,
-    private val borutoDatabase: BorutoDatabase
+    private val NBAApi: NBAApi,
+    private val NBAHeroesDatabase: NBAHeroesDatabase
 ) : RemoteMediator<Int, Hero>() {
-    private val heroDao = borutoDatabase.heroDao()
-    private val heroRemoteKeysDao = borutoDatabase.heroRemoteKeysDao()
+    private val heroDao = NBAHeroesDatabase.heroDao()
+    private val heroRemoteKeysDao = NBAHeroesDatabase.heroRemoteKeysDao()
 
     override suspend fun initialize(): InitializeAction {
         val currentTime = System.currentTimeMillis()
@@ -56,9 +56,9 @@ class HeroRemoteMediator @Inject constructor(
                     nextPage
                 }
             }
-            val response = borutoApi.getAllHeroes(page = page)
+            val response = NBAApi.getAllHeroes(page = page)
             if (response.heroes.isNotEmpty()) {
-                borutoDatabase.withTransaction {
+                NBAHeroesDatabase.withTransaction {
                     if (loadType == LoadType.REFRESH) {
                         heroDao.deleteAllHeroes()
                         heroRemoteKeysDao.deleteAllRemoteKeys()

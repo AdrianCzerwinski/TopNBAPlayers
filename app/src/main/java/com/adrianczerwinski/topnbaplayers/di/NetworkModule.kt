@@ -1,7 +1,7 @@
 package com.adrianczerwinski.topnbaplayers.di
 
-import com.adrianczerwinski.topnbaplayers.data.local.BorutoDatabase
-import com.adrianczerwinski.topnbaplayers.data.remote.BorutoApi
+import com.adrianczerwinski.topnbaplayers.data.local.NBAHeroesDatabase
+import com.adrianczerwinski.topnbaplayers.data.remote.NBAApi
 import com.adrianczerwinski.topnbaplayers.data.repository.RemoteDataSourceImpl
 import com.adrianczerwinski.topnbaplayers.domain.repository.RemoteDataSource
 import com.adrianczerwinski.topnbaplayers.util.Constants.BASE_URL
@@ -45,19 +45,19 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideBorutoApi(retrofit: Retrofit): BorutoApi {
-        return retrofit.create(BorutoApi::class.java)
+    fun provideNBAApi(retrofit: Retrofit): NBAApi {
+        return retrofit.create(NBAApi::class.java)
     }
 
     @Provides
     @Singleton
     fun provideRemoteDataSource(
-        borutoApi: BorutoApi,
-        borutoDatabase: BorutoDatabase
+        NBAApi: NBAApi,
+        NBAHeroesDatabase: NBAHeroesDatabase
     ): RemoteDataSource {
         return RemoteDataSourceImpl(
-            borutoApi = borutoApi,
-            borutoDatabase = borutoDatabase
+            NBAApi = NBAApi,
+            NBAHeroesDatabase = NBAHeroesDatabase
         )
     }
 

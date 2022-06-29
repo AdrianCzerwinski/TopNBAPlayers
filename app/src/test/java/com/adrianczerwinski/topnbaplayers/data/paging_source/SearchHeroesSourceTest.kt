@@ -1,8 +1,8 @@
 package com.adrianczerwinski.topnbaplayers.data.paging_source
 
 import androidx.paging.PagingSource.*
-import com.adrianczerwinski.topnbaplayers.data.remote.BorutoApi
-import com.adrianczerwinski.topnbaplayers.data.remote.FakeBorutoApi
+import com.adrianczerwinski.topnbaplayers.data.remote.NBAApi
+import com.adrianczerwinski.topnbaplayers.data.remote.FakeNBAApi
 import com.adrianczerwinski.topnbaplayers.domain.model.Hero
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
@@ -14,12 +14,12 @@ import kotlin.test.assertTrue
 @ExperimentalCoroutinesApi
 class SearchHeroesSourceTest {
 
-    private lateinit var borutoApi: BorutoApi
+    private lateinit var NBAApi: NBAApi
     private lateinit var heroes: List<Hero>
 
     @Before
     fun setup(){
-        borutoApi = FakeBorutoApi()
+        NBAApi = FakeNBAApi()
         heroes = listOf(
             Hero(
                 id = 1,
@@ -115,7 +115,7 @@ class SearchHeroesSourceTest {
     fun `Search api with existing hero name, expect single hero result, assert LoadResult_Page`() =
         runBlockingTest {
             val heroSource = SearchHeroesSource(
-                borutoApi = borutoApi,
+                borutoApi = NBAApi,
                 query = "Sasuke"
             )
             assertEquals<LoadResult<Int, Hero>>(
@@ -137,7 +137,7 @@ class SearchHeroesSourceTest {
     fun `Search api with existing hero name, expect multiple hero result, assert LoadResult_Page`() =
         runBlockingTest {
             val heroSource = SearchHeroesSource(
-                borutoApi = borutoApi,
+                borutoApi = NBAApi,
                 query = "Sa"
             )
             assertEquals<LoadResult<Int, Hero>>(
@@ -159,7 +159,7 @@ class SearchHeroesSourceTest {
     fun `Search api with empty hero name, assert empty heroes list and LoadResult_Page`() =
         runBlockingTest {
             val heroSource = SearchHeroesSource(
-                borutoApi = borutoApi,
+                borutoApi = NBAApi,
                 query = ""
             )
             val loadResult = heroSource.load(
@@ -167,7 +167,7 @@ class SearchHeroesSourceTest {
                         key = null, loadSize = 3, placeholdersEnabled = false
                     )
             )
-            val result = borutoApi.searchHeroes("").heroes
+            val result = NBAApi.searchHeroes("").heroes
 
             assertTrue { result.isEmpty() }
             assertTrue { loadResult is LoadResult.Page }
@@ -177,7 +177,7 @@ class SearchHeroesSourceTest {
     fun `Search api with non-existing hero name, assert empty heroes list and LoadResult_Page`() =
         runBlockingTest {
             val heroSource = SearchHeroesSource(
-                borutoApi = borutoApi,
+                borutoApi = NBAApi,
                 query = "Unknown"
             )
             val loadResult = heroSource.load(
@@ -185,7 +185,7 @@ class SearchHeroesSourceTest {
                     key = null, loadSize = 3, placeholdersEnabled = false
                 )
             )
-            val result = borutoApi.searchHeroes("Unknown").heroes
+            val result = NBAApi.searchHeroes("Unknown").heroes
 
             assertTrue { result.isEmpty() }
             assertTrue { loadResult is LoadResult.Page }

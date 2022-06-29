@@ -2,18 +2,18 @@ package com.adrianczerwinski.topnbaplayers.data.paging_source
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.adrianczerwinski.topnbaplayers.data.remote.BorutoApi
+import com.adrianczerwinski.topnbaplayers.data.remote.NBAApi
 import com.adrianczerwinski.topnbaplayers.domain.model.Hero
 import javax.inject.Inject
 
 class SearchHeroesSource @Inject constructor(
-    private val borutoApi: BorutoApi,
+    private val NBAApi: NBAApi,
     private val query: String
 ): PagingSource<Int, Hero>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Hero> {
         return try {
-            val apiResponse = borutoApi.searchHeroes(name = query)
+            val apiResponse = NBAApi.searchHeroes(name = query)
             val heroes = apiResponse.heroes
             if(heroes.isNotEmpty()){
                 LoadResult.Page(

@@ -4,7 +4,7 @@ import com.adrianczerwinski.topnbaplayers.domain.model.ApiResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface BorutoApi {
+interface NBAApi {
 
     @GET("/nba/heroes")
     suspend fun getAllHeroes(
